@@ -1,5 +1,7 @@
 package sf.bank.deposits.scanToQuote.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +16,19 @@ public class MainController {
 
 	@RequestMapping(value = "/getString", method = RequestMethod.GET, produces = "application/json")
 	public String getdashboard(Model model){
-		return "FUDGE FUDGE FUDGE";
+		return "TESTING, ATTENTION PLEASE! HERE'S TEN CENTS, MY 2 CENTS IS FREE";
 	}
 	
 	
 	@RequestMapping(value = "/getString", method = RequestMethod.POST, produces = "application/json")
-	public CustomerObj retrieveCryptoValues(Byte[] pictureByteStream) {	
+	public CustomerObj retrieveCryptoValues(byte[] pictureByteStream) throws Exception {	
 		CustomerObj toReturn = converter.convertByteStreamToCustomerObj(pictureByteStream);		
 		return toReturn;
 	}
+	
+	
+
+	
 	
 	
 }
