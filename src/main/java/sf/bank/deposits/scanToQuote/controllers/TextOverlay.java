@@ -1,34 +1,46 @@
 package sf.bank.deposits.scanToQuote.controllers;
 
-public class TextOverlay {
-	private String[] lines;
+public class TextOverlay
+{
+    private String[] Lines;
 
-	private String message;
+    private String Message;
 
-	private String hasOverlay;
+    private String HasOverlay;
 
-	public String[] getLines() {
-		return lines;
-	}
+    public String[] getLines ()
+    {
+        return Lines;
+    }
 
-	public void setLines(String[] lines) {
-		this.lines = lines;
-	}
+    public void setLines (String[] Lines)
+    {
+        this.Lines = Lines;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage ()
+    {
+        return Message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage (String Message)
+    {
+        this.Message = Message;
+    }
 
-	public String getHasOverlay() {
-		return hasOverlay;
-	}
+    public String getHasOverlay ()
+    {
+        return HasOverlay;
+    }
 
-	public void setHasOverlay(String hasOverlay) {
-		this.hasOverlay = hasOverlay;
-	}
+    public void setHasOverlay (String HasOverlay)
+    {
+        this.HasOverlay = HasOverlay;
+    }
 
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [Lines = "+Lines+", Message = "+Message+", HasOverlay = "+HasOverlay+"]";
+    }
 }

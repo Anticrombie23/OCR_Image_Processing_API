@@ -2,93 +2,93 @@ package sf.bank.deposits.scanToQuote.controllers;
 
 public class ResponseObj
 {
-    private ParsedResults[] parsedResults;
+    private ParsedResults[] ParsedResults;
 
-    private String isErroredOnProcessing;
+    private String IsErroredOnProcessing;
 
-    private String errorMessage;
+    private String ErrorMessage;
 
-    private String processingTimeInMilliseconds;
+    private String ProcessingTimeInMilliseconds;
 
-    private String searchablePDFURL;
+    private String SearchablePDFURL;
 
-    private String oCRExitCode;
+    private String OCRExitCode;
 
-    private String errorDetails;
+    private String ErrorDetails;
 
     public ParsedResults[] getParsedResults ()
     {
-        return parsedResults;
+        return ParsedResults;
     }
 
-    public void setParsedResults (ParsedResults[] parsedResults)
+    public void setParsedResults (ParsedResults[] ParsedResults)
     {
-        this.parsedResults = parsedResults;
+        this.ParsedResults = ParsedResults;
     }
 
     public String getIsErroredOnProcessing ()
     {
-        return isErroredOnProcessing;
+        return IsErroredOnProcessing;
     }
 
-    public void setIsErroredOnProcessing (String isErroredOnProcessing)
+    public void setIsErroredOnProcessing (String IsErroredOnProcessing)
     {
-        this.isErroredOnProcessing = isErroredOnProcessing;
+        this.IsErroredOnProcessing = IsErroredOnProcessing;
     }
 
     public String getErrorMessage ()
     {
-        return errorMessage;
+        return ErrorMessage;
     }
 
-    public void setErrorMessage (String errorMessage)
+    public void setErrorMessage (String ErrorMessage)
     {
-        this.errorMessage = errorMessage;
+        this.ErrorMessage = ErrorMessage;
     }
 
     public String getProcessingTimeInMilliseconds ()
     {
-        return processingTimeInMilliseconds;
+        return ProcessingTimeInMilliseconds;
     }
 
-    public void setProcessingTimeInMilliseconds (String processingTimeInMilliseconds)
+    public void setProcessingTimeInMilliseconds (String ProcessingTimeInMilliseconds)
     {
-        this.processingTimeInMilliseconds = processingTimeInMilliseconds;
+        this.ProcessingTimeInMilliseconds = ProcessingTimeInMilliseconds;
     }
 
     public String getSearchablePDFURL ()
     {
-        return searchablePDFURL;
+        return SearchablePDFURL;
     }
 
-    public void setSearchablePDFURL (String searchablePDFURL)
+    public void setSearchablePDFURL (String SearchablePDFURL)
     {
-        this.searchablePDFURL = searchablePDFURL;
+        this.SearchablePDFURL = SearchablePDFURL;
     }
 
     public String getOCRExitCode ()
     {
-        return oCRExitCode;
+        return OCRExitCode;
     }
 
-    public void setOCRExitCode (String oCRExitCode)
+    public void setOCRExitCode (String OCRExitCode)
     {
-        this.oCRExitCode = oCRExitCode;
+        this.OCRExitCode = OCRExitCode;
     }
 
     public String getErrorDetails ()
     {
-        return errorDetails;
+        return ErrorDetails;
     }
 
     public void setErrorDetails (String ErrorDetails)
     {
-        this.errorDetails = ErrorDetails;
+        this.ErrorDetails = ErrorDetails;
     }
 
-//    @Override
-//    public String toString()
-//    {
-//        return "ClassPojo [ParsedResults = "+ParsedResults+", IsErroredOnProcessing = "+IsErroredOnProcessing+", ErrorMessage = "+ErrorMessage+", ProcessingTimeInMilliseconds = "+ProcessingTimeInMilliseconds+", SearchablePDFURL = "+SearchablePDFURL+", OCRExitCode = "+OCRExitCode+", ErrorDetails = "+ErrorDetails+"]";
-//    }
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [ParsedResults = "+ParsedResults+", IsErroredOnProcessing = "+IsErroredOnProcessing+", ErrorMessage = "+ErrorMessage+", ProcessingTimeInMilliseconds = "+ProcessingTimeInMilliseconds+", SearchablePDFURL = "+SearchablePDFURL+", OCRExitCode = "+OCRExitCode+", ErrorDetails = "+ErrorDetails+"]";
+    }
 }

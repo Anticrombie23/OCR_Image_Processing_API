@@ -22,9 +22,8 @@ import net.sourceforge.tess4j.TesseractException;
 @Component
 public class LicensePictureToCustomerConverter {
 
-	
 	ITesseract instance;
-	
+
 	public LicensePictureToCustomerConverter() {
 		instance = initTesseract();
 	}
@@ -49,62 +48,80 @@ public class LicensePictureToCustomerConverter {
 	// orientation or any criteria you deem suitable.
 	// Clip these detected rectangular portions from the image after
 	// adaptiveThreshold and apply OCR.
-	
-	//https://docparser.com/blog/improve-ocr-accuracy/
-	//OCR api potentially https://ocr.space/ocrapi
-	//http://www.ocr-it.com/ocr-cloud-2-0-api/
-	
-	
+
+	// https://docparser.com/blog/improve-ocr-accuracy/
+	// OCR api potentially https://ocr.space/ocrapi
+	// http://www.ocr-it.com/ocr-cloud-2-0-api/
+
 	public static final String URI_PREFIX = "https://api.ocr.space/parse/image";
 	public static final String apiKey = "bb80db454d88957";
 	RestTemplate template = new RestTemplate();
 
-	public CustomerObj convertByteStreamToCustomerObj(byte[] pictureByteStream) throws Exception {	
-		
-		
-		//Attempt client instead
-		String returnedInfo = contactOCRService(pictureByteStream);
+	public CustomerObj convertByteStreamToCustomerObj(byte[] pictureByteStream) throws Exception {
+
+		// MUST UPLOAD TO IMGUR FIRST, then we need to extract the location of the image
+		// (all the way to .PNG or JPG)
+		String imgurURL = contactImgur(pictureByteStream);
+		// pass the imgur URL into contact ocr service
+
+		// Attempt client instead
+		String returnedInfo = contactOCRService(imgurURL);
+
+		// Convert to obj to send back to UI
 		CustomerObj obj = convertReturnedInfoToCustObj(returnedInfo);
-		
-//		BufferedImage bufferedImage = createImageFromByteStream(pictureByteStream);
-//		bufferedImage = processImageBeforeOCR(bufferedImage);
-//		String ocrString = performOCR(bufferedImage, instance);
-//		CustomerObj obj = extractCustomerObjFromString(ocrString);
+
+		// BufferedImage bufferedImage = createImageFromByteStream(pictureByteStream);
+		// bufferedImage = processImageBeforeOCR(bufferedImage);
+		// String ocrString = performOCR(bufferedImage, instance);
+		// CustomerObj obj = extractCustomerObjFromString(ocrString);
 		return obj;
 	}
 
-	private CustomerObj convertReturnedInfoToCustObj(String returnedInfo) {
-		// TODO Auto-generated method stub
+	private String contactImgur(byte[] pictureByteStream) {
+
+		// Must change byte stream into Base64 encoded String to send to imgur for
+		// upload. TBD how.
+
+		String encodedString = Base64.getEncoder().encodeToString(pictureByteStream);
+		encodedString = "data:image/jpg;base64," + encodedString.trim();
+
 		return null;
 	}
 
-	private String contactOCRService(byte[] pictureByteStream) {
+	private CustomerObj convertReturnedInfoToCustObj(String returnedInfo) {
 		
-		String encodedString = Base64.getEncoder().encodeToString(pictureByteStream);
-		encodedString = "data:image/jpg;base64," + encodedString.trim();
+		//OBJ returned looks like this. Must try multiple IDs though
+	//	"ParsedText": "Texas \r\nUSA \r\nDRIVER LICENSE \r\nDL 12345678 \r\n0410/2014 \r\nDOB 09/21/1990 \r\n• ' SAMPLE \r\nN. 
+	//	Joy DRIVING \r\n2120 OLD MAIN STREET \r\nANYTOWN, TX 12345 \r\n04/10/2018 \r\nVETERAN \r\n• Hgt5-09 „s„F GRN \r\nDD 12345678900000000000 \r\n",
+		
+		
+		
+		return null;
+	}
+
+	private String contactOCRService(String imgurURL) {
+		imgurURL = "https://i.imgur.com/Q5Ef8tP.jpg";
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("apiKey", apiKey);
-		
-		ResponseEntity<ResponseObj> response = null;		
-		OCRModel model = prepareModel(encodedString);
+
+		ResponseEntity<ResponseObj> response = null;
+		OCRModel model = prepareModel(imgurURL);
 		HttpEntity<OCRModel> entity = new HttpEntity<OCRModel>(model, headers);
 		try {
 			response = template.exchange(URI_PREFIX, HttpMethod.POST, entity, ResponseObj.class, UUID.randomUUID());
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+
 		return null;
 	}
 
-	private OCRModel prepareModel(String encodedString) {
-		
+	private OCRModel prepareModel(String imgurURL) {
 		OCRModel model = new OCRModel();
 		model.setLanguage("eng");
-		model.setBase64Image(encodedString);
+		model.setUrl(imgurURL);
+		model.setFiletype("jpg");
 		return model;
 	}
 
