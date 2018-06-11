@@ -22,11 +22,11 @@ import net.sourceforge.tess4j.TesseractException;
 @Component
 public class LicensePictureToCustomerConverter {
 
-	ITesseract instance;
+//	ITesseract instance;
 
-	public LicensePictureToCustomerConverter() {
-		instance = initTesseract();
-	}
+//	public LicensePictureToCustomerConverter() {
+//		instance = initTesseract();
+//	}
 
 	// TODO tasks
 
@@ -125,25 +125,25 @@ public class LicensePictureToCustomerConverter {
 		return model;
 	}
 
-	private BufferedImage processImageBeforeOCR(BufferedImage bufferedImage) throws Exception {
-		return ImagePreProcessor.processImage(bufferedImage);
-	}
+//	private BufferedImage processImageBeforeOCR(BufferedImage bufferedImage) throws Exception {
+//		return ImagePreProcessor.processImage(bufferedImage);
+//	}
 
 	private CustomerObj extractCustomerObjFromString(String ocrString) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private String performOCR(BufferedImage bufferedImage, ITesseract instance) {
-		try {
-			String result = instance.doOCR(bufferedImage);
-			System.out.println(result);
-			return result;
-		} catch (TesseractException e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
+//	private String performOCR(BufferedImage bufferedImage, ITesseract instance) {
+//		try {
+//			String result = instance.doOCR(bufferedImage);
+//			System.out.println(result);
+//			return result;
+//		} catch (TesseractException e) {
+//			System.out.println(e.getMessage());
+//			return null;
+//		}
+//	}
 
 	private BufferedImage createImageFromByteStream(byte[] pictureByteStream) {
 		BufferedImage bufferedImage = null;
@@ -155,10 +155,10 @@ public class LicensePictureToCustomerConverter {
 		return bufferedImage;
 	}
 
-	private ITesseract initTesseract() {
-		ITesseract instance = new Tesseract();
-		instance.setDatapath("C:\\DEV\\Views\\scanToQuote\\tessdata");
-		return instance;
-	}
+//	private ITesseract initTesseract() {
+//		ITesseract instance = new Tesseract();
+//		instance.setDatapath("C:\\DEV\\Views\\scanToQuote\\tessdata");
+//		return instance;
+//	}
 
 }
