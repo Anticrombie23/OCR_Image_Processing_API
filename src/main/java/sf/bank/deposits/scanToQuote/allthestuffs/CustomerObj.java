@@ -1,4 +1,4 @@
-package sf.bank.deposits.scanToQuote.controllers;
+package sf.bank.deposits.scanToQuote.allthestuffs;
 
 public class CustomerObj {
 

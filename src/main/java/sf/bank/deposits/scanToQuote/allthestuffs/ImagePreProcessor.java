@@ -1,3 +1,4 @@
+package sf.bank.deposits.scanToQuote.allthestuffs;
 //package sf.bank.deposits.scanToQuote.controllers;
 //
 //import java.awt.image.BufferedImage;

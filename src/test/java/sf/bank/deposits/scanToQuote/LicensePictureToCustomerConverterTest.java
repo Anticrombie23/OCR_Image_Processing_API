@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 
 import org.junit.Test;
 
-import sf.bank.deposits.scanToQuote.controllers.CustomerObj;
-import sf.bank.deposits.scanToQuote.controllers.LicensePictureToCustomerConverter;
+import sf.bank.deposits.scanToQuote.allthestuffs.CustomerObj;
+import sf.bank.deposits.scanToQuote.allthestuffs.LicensePictureToCustomerConverter;
 
 public class LicensePictureToCustomerConverterTest {
 
