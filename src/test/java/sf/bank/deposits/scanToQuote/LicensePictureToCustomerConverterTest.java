@@ -23,7 +23,7 @@ public class LicensePictureToCustomerConverterTest {
 	}
 
 	public byte[] getByteArray() throws IOException {
-		BufferedImage bImage = ImageIO.read(new File("/scanToQuote/josh_license.jpg"));
+		BufferedImage bImage = ImageIO.read(new File("C:\\DEV\\GIT_VIEWS\\scanToQuote\\OCR_Image_Processing_API\\texas-drivers-license.jpg"));
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ImageIO.write(bImage, "jpg", bos);
 		byte[] data = bos.toByteArray();

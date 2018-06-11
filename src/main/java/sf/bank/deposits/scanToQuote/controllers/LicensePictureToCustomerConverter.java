@@ -3,10 +3,11 @@ package sf.bank.deposits.scanToQuote.controllers;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Base64;
+import java.net.URL;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.HttpsURLConnection;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,18 +16,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
+import io.github.kschaap1994.imgur.ImgurClient;
+import io.github.kschaap1994.imgur.model.ImgurImage;
 
 @Component
 public class LicensePictureToCustomerConverter {
 
-//	ITesseract instance;
+	// ITesseract instance;
 
-//	public LicensePictureToCustomerConverter() {
-//		instance = initTesseract();
-//	}
+	// public LicensePictureToCustomerConverter() {
+	// instance = initTesseract();
+	// }
 
 	// TODO tasks
 
@@ -61,11 +61,11 @@ public class LicensePictureToCustomerConverter {
 
 		// MUST UPLOAD TO IMGUR FIRST, then we need to extract the location of the image
 		// (all the way to .PNG or JPG)
-		String imgurURL = contactImgur(pictureByteStream);
+		ImgurImage returnedImage = contactImgur(pictureByteStream);
 		// pass the imgur URL into contact ocr service
 
 		// Attempt client instead
-		String returnedInfo = contactOCRService(imgurURL);
+		String returnedInfo = contactOCRService(returnedImage);
 
 		// Convert to obj to send back to UI
 		CustomerObj obj = convertReturnedInfoToCustObj(returnedInfo);
@@ -77,44 +77,57 @@ public class LicensePictureToCustomerConverter {
 		return obj;
 	}
 
-	private String contactImgur(byte[] pictureByteStream) {
-
+	private ImgurImage contactImgur(byte[] pictureByteStream) throws IOException {
+		String imgurClientID = "50031ab084d80fe";
+		String imgurClientSecret = "d0e2425b95469f365c0ef6b03816ae57e4bd137b";
 		// Must change byte stream into Base64 encoded String to send to imgur for
 		// upload. TBD how.
 
-		String encodedString = Base64.getEncoder().encodeToString(pictureByteStream);
-		encodedString = "data:image/jpg;base64," + encodedString.trim();
+		ImgurClient client = new ImgurClient(imgurClientID);
 
-		return null;
-	}
-
-	private CustomerObj convertReturnedInfoToCustObj(String returnedInfo) {
-		
-		//OBJ returned looks like this. Must try multiple IDs though
-	//	"ParsedText": "Texas \r\nUSA \r\nDRIVER LICENSE \r\nDL 12345678 \r\n0410/2014 \r\nDOB 09/21/1990 \r\n• ' SAMPLE \r\nN. 
-	//	Joy DRIVING \r\n2120 OLD MAIN STREET \r\nANYTOWN, TX 12345 \r\n04/10/2018 \r\nVETERAN \r\n• Hgt5-09 „s„F GRN \r\nDD 12345678900000000000 \r\n",
-		
-		
-		
-		return null;
-	}
-
-	private String contactOCRService(String imgurURL) {
-		imgurURL = "https://i.imgur.com/Q5Ef8tP.jpg";
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("apiKey", apiKey);
-
-		ResponseEntity<ResponseObj> response = null;
-		OCRModel model = prepareModel(imgurURL);
-		HttpEntity<OCRModel> entity = new HttpEntity<OCRModel>(model, headers);
 		try {
-			response = template.exchange(URI_PREFIX, HttpMethod.POST, entity, ResponseObj.class, UUID.randomUUID());
+			ImgurImage image = client.uploadImage(pictureByteStream);
+			return image;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return null;
+	}
+
+	private CustomerObj convertReturnedInfoToCustObj(String returnedInfo) {
+
+		// OBJ returned looks like this. Must try multiple IDs though
+		// "ParsedText": "Texas \r\nUSA \r\nDRIVER LICENSE \r\nDL 12345678 \r\n0410/2014
+		// \r\nDOB 09/21/1990 \r\n• ' SAMPLE \r\nN.
+		// Joy DRIVING \r\n2120 OLD MAIN STREET \r\nANYTOWN, TX 12345 \r\n04/10/2018
+		// \r\nVETERAN \r\n• Hgt5-09 „s„F GRN \r\nDD 12345678900000000000 \r\n",
+
+		return null;
+	}
+
+	private String contactOCRService(ImgurImage image) throws IOException {
+		
+		
+		 URL obj = new URL(URI_PREFIX); // OCR API Endpoints
+	     HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+	     con.setRequestMethod("POST");
+	     con.setRequestProperty("User-Agent", "Mozilla/5.0");
+	     con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("apiKey", apiKey);
+//
+//		ResponseEntity<ResponseObj> response = null;
+//		OCRModel model = prepareModel(image.link);
+//		HttpEntity<OCRModel> entity = new HttpEntity<OCRModel>(model, headers);
+//		try {
+//			response = template.exchange(URI_PREFIX, HttpMethod.POST, entity, ResponseObj.class, UUID.randomUUID());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return null;
 	}
 
 	private OCRModel prepareModel(String imgurURL) {
@@ -125,25 +138,26 @@ public class LicensePictureToCustomerConverter {
 		return model;
 	}
 
-//	private BufferedImage processImageBeforeOCR(BufferedImage bufferedImage) throws Exception {
-//		return ImagePreProcessor.processImage(bufferedImage);
-//	}
+	// private BufferedImage processImageBeforeOCR(BufferedImage bufferedImage)
+	// throws Exception {
+	// return ImagePreProcessor.processImage(bufferedImage);
+	// }
 
 	private CustomerObj extractCustomerObjFromString(String ocrString) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-//	private String performOCR(BufferedImage bufferedImage, ITesseract instance) {
-//		try {
-//			String result = instance.doOCR(bufferedImage);
-//			System.out.println(result);
-//			return result;
-//		} catch (TesseractException e) {
-//			System.out.println(e.getMessage());
-//			return null;
-//		}
-//	}
+	// private String performOCR(BufferedImage bufferedImage, ITesseract instance) {
+	// try {
+	// String result = instance.doOCR(bufferedImage);
+	// System.out.println(result);
+	// return result;
+	// } catch (TesseractException e) {
+	// System.out.println(e.getMessage());
+	// return null;
+	// }
+	// }
 
 	private BufferedImage createImageFromByteStream(byte[] pictureByteStream) {
 		BufferedImage bufferedImage = null;
@@ -155,10 +169,10 @@ public class LicensePictureToCustomerConverter {
 		return bufferedImage;
 	}
 
-//	private ITesseract initTesseract() {
-//		ITesseract instance = new Tesseract();
-//		instance.setDatapath("C:\\DEV\\Views\\scanToQuote\\tessdata");
-//		return instance;
-//	}
+	// private ITesseract initTesseract() {
+	// ITesseract instance = new Tesseract();
+	// instance.setDatapath("C:\\DEV\\Views\\scanToQuote\\tessdata");
+	// return instance;
+	// }
 
 }

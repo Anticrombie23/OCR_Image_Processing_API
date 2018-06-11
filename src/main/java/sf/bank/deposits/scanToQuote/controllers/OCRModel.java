@@ -6,9 +6,9 @@ public class OCRModel {
 	String url;
 	String base64Image;
 	String language;
-	boolean isOverlayRequired = false;
-	boolean iscreatesearchablepdf = false;
-	boolean issearchablepdfhidetextlayer = false;
+	String isOverlayRequired = "false";
+	String iscreatesearchablepdf = "false";
+	String issearchablepdfhidetextlayer = "false";
 
 	public String getFiletype() {
 		return filetype;
@@ -26,30 +26,6 @@ public class OCRModel {
 		this.url = url;
 	}
 
-	public boolean isOverlayRequired() {
-		return isOverlayRequired;
-	}
-
-	public void setOverlayRequired(boolean isOverlayRequired) {
-		this.isOverlayRequired = isOverlayRequired;
-	}
-
-	public boolean isIscreatesearchablepdf() {
-		return iscreatesearchablepdf;
-	}
-
-	public void setIscreatesearchablepdf(boolean iscreatesearchablepdf) {
-		this.iscreatesearchablepdf = iscreatesearchablepdf;
-	}
-
-	public boolean isIssearchablepdfhidetextlayer() {
-		return issearchablepdfhidetextlayer;
-	}
-
-	public void setIssearchablepdfhidetextlayer(boolean issearchablepdfhidetextlayer) {
-		this.issearchablepdfhidetextlayer = issearchablepdfhidetextlayer;
-	}
-
 	public String getBase64Image() {
 		return base64Image;
 	}
@@ -64,6 +40,30 @@ public class OCRModel {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public String getIsOverlayRequired() {
+		return isOverlayRequired;
+	}
+
+	public void setIsOverlayRequired(String isOverlayRequired) {
+		this.isOverlayRequired = isOverlayRequired;
+	}
+
+	public String getIscreatesearchablepdf() {
+		return iscreatesearchablepdf;
+	}
+
+	public void setIscreatesearchablepdf(String iscreatesearchablepdf) {
+		this.iscreatesearchablepdf = iscreatesearchablepdf;
+	}
+
+	public String getIssearchablepdfhidetextlayer() {
+		return issearchablepdfhidetextlayer;
+	}
+
+	public void setIssearchablepdfhidetextlayer(String issearchablepdfhidetextlayer) {
+		this.issearchablepdfhidetextlayer = issearchablepdfhidetextlayer;
 	}
 
 }

@@ -25,13 +25,24 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-web</artifactId> -->
-		<!-- <version>4.1.6.RELEASE</version> -->
-		<!-- </dependency> -->
+
+
+		<dependency>
+			<groupId>com.github.KSchaap1994</groupId>
+			<artifactId>imgur-client</artifactId>
+			<version>0.05</version>
+		</dependency>
 
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -75,12 +86,12 @@
 		<plugins>
 
 			<plugin>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-				<source>1.8</source>
-				<target>1.8</target>
-			</configuration>
-		</plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
