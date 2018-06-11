@@ -14,8 +14,22 @@ public class TexasParser extends GenericParser {
 		replaced = getParseableString().replaceAll("\\\\n", ":");
 		replaced = getParseableString().replaceAll("\\\\t", ":");
 		replaced = getParseableString().replace("\\", ":");
-		replaced = getParseableString().trim();
-
+		String[] splitString = replaced.split(":");
+		
+		
+		String firstToSplit = splitString[4];
+		String[] splitOnSpaces = firstToSplit.split(" ");
+		String state = splitOnSpaces[0];
+		String country = splitOnSpaces[1];
+		String dlNumber = splitOnSpaces[5];
+		String dateIssued = splitOnSpaces[6];
+		if(dateIssued.length() == 9) {
+			dateIssued = dateIssued.substring(0, 2) + "/" + dateIssued.substring(2, dateIssued.length());
+		}
+		
+		String secondSplit = splitString[7];
+		String dob = secondSplit.substring(6, secondSplit.length());
+		
 		// OBJ returned looks like this. Must try multiple IDs though
 		// "ParsedText": "Texas \r\nUSA \r\nDRIVER LICENSE \r\nDL 12345678 \r\n0410/2014
 		// \r\nDOB 09/21/1990 \r\n• ' SAMPLE \r\nN.
