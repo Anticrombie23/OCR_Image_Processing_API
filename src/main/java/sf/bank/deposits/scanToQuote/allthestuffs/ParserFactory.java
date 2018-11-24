@@ -6,7 +6,7 @@ public class ParserFactory {
 
 		GenericParser parser;
 
-		if (returnedInfo.contains("Texas") || returnedInfo.contains("TEXAS") || returnedInfo.contains("texas")) {
+		if (returnedInfo.equalsIgnoreCase().contains("texas"))) {
 			return parser = new TexasParser(returnedInfo);
 		}
 
